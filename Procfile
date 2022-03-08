@@ -1,0 +1,1 @@
+worker: sh target/bin/Make_CV_bot
