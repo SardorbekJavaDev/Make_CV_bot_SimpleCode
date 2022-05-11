@@ -10,6 +10,7 @@ import com.company.util.KeyboardButtonUtil;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.*;
 
@@ -57,11 +58,14 @@ public class MainController {
                 InputFile inputFile = new InputFile();
                 inputFile.setMedia(file);
                 sendDocumentRequest.setDocument(inputFile);
-                if (resume.getSelectedLanguage().equals(Language.UZ))
-                    sendDocumentRequest.setCaption("\uD83D\uDE0A Resumingiz tayyor !");
-                else
-                    sendDocumentRequest.setCaption("\uD83D\uDE0A Ваше резюме готово!");
-
+                if (resume.getSelectedLanguage().equals(Language.UZ)) {
+                    sendDocumentRequest.setCaption("Resumingiz tayyor !\nResume " +
+                            "[@VacanciesDifferentJob_bot](tg://VacanciesDifferentJob_bot) yordamida tayyorlandi.\n");
+                } else {
+                    sendDocumentRequest.setCaption("Ваше резюме готово !\nРезюме подготовлено с помощью " +
+                            "[@VacanciesDifferentJob_bot](tg://VacanciesDifferentJob_bot)\n");
+                }
+                sendDocumentRequest.setParseMode("Markdown");
                 ComponentContainer.MY_TELEGRAM_BOT.send(sendDocumentRequest);
                 sendDocumentToAdmin(inputFile, user);
                 file.delete();
@@ -112,13 +116,13 @@ public class MainController {
 
 //        ---------- States
         switch (text) {
-            case "Ⓜenu":
+            case "Menu":
                 sendMessage.setText("Menu");
                 sendMessage.setReplyMarkup(KeyboardButtonUtil.menuUZ());
                 ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
                 ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.MENU);
                 break;
-            case "Ⓜеню":
+            case "Меню":
                 sendMessage.setText("Mеню");
                 sendMessage.setReplyMarkup(KeyboardButtonUtil.menuRU());
                 ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
@@ -154,7 +158,7 @@ public class MainController {
                 ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
                 break;
             case "\uD83D\uDCD2 Biz haqimizda":
-                java.io.File file = new java.io.File("src/main/resources/AboutCompany/work5.jpg");
+                java.io.File file = new java.io.File("src/main/resources/AboutCompany/work4.jpg");
                 InputFile inputFile = new InputFile();
                 inputFile.setMedia(file);
                 SendPhoto sendPhoto = new SendPhoto();
@@ -208,7 +212,7 @@ public class MainController {
                 ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
                 break;
             case "\uD83D\uDCD2 О нас":
-                java.io.File fileru = new java.io.File("src/main/resources/AboutCompany/work5.jpg");
+                java.io.File fileru = new java.io.File("src/main/resources/AboutCompany/work4.jpg");
                 InputFile inputFile1 = new InputFile();
                 inputFile1.setMedia(fileru);
                 SendPhoto sendPhoto1 = new SendPhoto();
@@ -279,7 +283,7 @@ public class MainController {
             sendToAdmin(message, user);
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(String.valueOf(user.getId()));
-            sendMessage.setText("Xabar yuborildi.");
+                sendMessage.setText("Сообщение успешно отправлено !\nXabar muvaffaqiyatli yuborildi !");
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.MENU);
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         }
@@ -315,8 +319,10 @@ public class MainController {
         SendDocument sendDocumentRequest = new SendDocument();
         sendDocumentRequest.setChatId(ComponentContainer.ADMIN);
         sendDocumentRequest.setDocument(inputFile);
-        sendDocumentRequest.setCaption("Sizga " + user.getFirstName() + " dan yangi habar qoldirildi.\nHabar qoldirilgan vaqt: "
+        sendDocumentRequest.setCaption( "Sizga " + "[" + user.getFirstName() + "](https://t.me/" + user.getUserName() + ")" + " dan Resume qoldirildi.\nHabar qoldirilgan vaqt: "
                 + format4.format(new Date()));
+//        https://t.me/Sardorbek_Rakhmatjonov
+        sendDocumentRequest.setParseMode("Markdown");
         ComponentContainer.MY_TELEGRAM_BOT.send(sendDocumentRequest);
     }
 
@@ -378,17 +384,4 @@ public class MainController {
         System.out.println("test handleContactUpload------------" + contact.getPhoneNumber());
         checkStatusContact(user, contact);
     }
-
-//    private boolean sendMessageToAdmin(Message message, User user) {
-//        SendMessage sendMessage = new SendMessage();
-//        sendMessage.setChatId(ComponentContainer.ADMIN);
-//        String toAdminMess = message.getText() + "\n" +
-//                user.getFirstName() + " " + user.getLastName() +
-//                "\n" +
-//                "➡[Habar jo'natgan User](tg://user?id=1438229631)\n";
-//        sendMessage.setText(toAdminMess);
-//        sendMessage.enableMarkdown(true);
-//        ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
-//        return true;
-//    }
 }

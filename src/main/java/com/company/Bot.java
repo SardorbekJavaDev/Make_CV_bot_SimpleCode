@@ -28,10 +28,18 @@ public class Bot extends TelegramLongPollingBot {
     public String getBotToken() {
         return "5188722391:AAFuO-Pvm15g666JoNUFgIgZd8Z8ACFEL-E";
     }
-
-
+//
+//    public SendInvoice payClick(Update update) { SendInvoice sendInvoice = new SendInvoice();
+//        Customer customer = customerRepository.findByChatId(update.getMessage().getChatId()).orElse(null);
+//        Orders orders = ordersRepository.findFirstByCustomer_ChatIdAndOrderStatusOrderByCreatedAtDesc(customer.getChatId(), OrderStatus.DRAFT);
+//        sendInvoice.setChatId(update.getMessage().getChat().getId()) .setTitle("Click orqali to'lash") .setDescription("\nTo'lov qiymati:" + (sumOrderByIdOnlyProduct + distanceSum) + " so'm.") .setPayload(orders.getId().toString());  List<LabeledPrice> labeledPrices = new ArrayList<>(); labeledPrices.add(new LabeledPrice("label2", ( (order.getSum()) * 100))); sendInvoice.setProviderToken(clickToken) .setStartParameter("busycube") .setCurrency("UZS") .setPrices(labeledPrices);
+//        return sendInvoice;
+//    }
     @Override
     public void onUpdateReceived(Update update) {
+//        payClick(update);
+
+
         if (update.hasMessage()) {
             Message message = update.getMessage();
             User user = message.getFrom();

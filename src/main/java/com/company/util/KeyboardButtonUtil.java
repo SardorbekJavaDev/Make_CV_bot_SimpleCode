@@ -47,7 +47,7 @@ public class KeyboardButtonUtil {
         replyKeyboardMarkup.setResizeKeyboard(true);
         replyKeyboardMarkup.setKeyboard(List.of(
                 KeyboardButtonUtil.row(KeyboardButtonUtil.button("O'tkazib yuborish")),
-                KeyboardButtonUtil.row(KeyboardButtonUtil.button("⬅ Ortga"), KeyboardButtonUtil.button("Ⓜenu"))
+                KeyboardButtonUtil.row(KeyboardButtonUtil.button("⬅ Ortga"), KeyboardButtonUtil.button("Menu"))
         ));
         return replyKeyboardMarkup;
     }
@@ -56,7 +56,7 @@ public class KeyboardButtonUtil {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         replyKeyboardMarkup.setResizeKeyboard(true);
         replyKeyboardMarkup.setKeyboard(List.of(
-                KeyboardButtonUtil.row(KeyboardButtonUtil.button("⬅ Ortga"), KeyboardButtonUtil.button("Ⓜenu"))
+                KeyboardButtonUtil.row(KeyboardButtonUtil.button("⬅ Ortga"), KeyboardButtonUtil.button("Menu"))
         ));
         return replyKeyboardMarkup;
     }
@@ -66,7 +66,7 @@ public class KeyboardButtonUtil {
         KeyboardButton btn1 = new KeyboardButton("Kontakt ulashish");
         btn1.setRequestContact(true);
         KeyboardButton btn2 = new KeyboardButton("⬅ Ortga");
-        KeyboardButton btn3 = new KeyboardButton("Ⓜenu");
+        KeyboardButton btn3 = new KeyboardButton("Menu");
         KeyboardRow row1 = new KeyboardRow();
         row1.add(btn1);
         KeyboardRow row2 = new KeyboardRow();
@@ -83,7 +83,7 @@ public class KeyboardButtonUtil {
         replyKeyboardMarkup.setResizeKeyboard(true);
         replyKeyboardMarkup.setKeyboard(List.of(
                 KeyboardButtonUtil.row(KeyboardButtonUtil.button("Пропускать")),
-                KeyboardButtonUtil.row(KeyboardButtonUtil.button("⬅ Назад"), KeyboardButtonUtil.button("Ⓜеню"))
+                KeyboardButtonUtil.row(KeyboardButtonUtil.button("⬅ Назад"), KeyboardButtonUtil.button("Меню"))
         ));
         return replyKeyboardMarkup;
     }
@@ -92,7 +92,25 @@ public class KeyboardButtonUtil {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         replyKeyboardMarkup.setResizeKeyboard(true);
         replyKeyboardMarkup.setKeyboard(List.of(
-                KeyboardButtonUtil.row(KeyboardButtonUtil.button("⬅ Назад"), KeyboardButtonUtil.button("Ⓜеню"))
+                KeyboardButtonUtil.row(KeyboardButtonUtil.button("⬅ Назад"), KeyboardButtonUtil.button("Меню"))
+        ));
+        return replyKeyboardMarkup;
+    }
+
+
+    public static ReplyKeyboardMarkup onlyMenuUZ() {
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setKeyboard(List.of(
+                KeyboardButtonUtil.row(KeyboardButtonUtil.button("Menu"))
+        ));
+        return replyKeyboardMarkup;
+    }
+    public static ReplyKeyboardMarkup onlyMenuRU() {
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setKeyboard(List.of(
+                KeyboardButtonUtil.row(KeyboardButtonUtil.button("Меню"))
         ));
         return replyKeyboardMarkup;
     }
@@ -102,7 +120,7 @@ public static ReplyKeyboardMarkup shareContactRU() {
     KeyboardButton btn1 = new KeyboardButton("Поделиться контактом");
     btn1.setRequestContact(true);
     KeyboardButton btn2 = new KeyboardButton("⬅ Назад");
-    KeyboardButton btn3 = new KeyboardButton("Ⓜеню");
+    KeyboardButton btn3 = new KeyboardButton("Меню");
     KeyboardRow row1 = new KeyboardRow();
     row1.add(btn1);
     KeyboardRow row2 = new KeyboardRow();

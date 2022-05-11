@@ -21,9 +21,9 @@ public class ResumeController {
         currentUser.setPhoneNumber(contact.getPhoneNumber());
         ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s6);
         if (currentUser.getSelectedLanguage().equals(Language.UZ))
-            sendMessage.setText("\uD83D\uDCE7 Emailgizni kiriting.\nNamuna: qwert@gmail.com, ...");
+            sendMessage.setText("\uD83D\uDCE7 Emailgizni kiriting.\nYordam: qwert@gmail.com, ...");
         else
-            sendMessage.setText("\uD83D\uDCF1 Введите свой номер телефона или нажмите «Поделиться контактом».\nОбразец +998901112233, ....");
+            sendMessage.setText("\uD83D\uDCE7 Введите адрес электронной почты.\nПример: qwert@gmail.com, ...");
 
 
         ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
@@ -34,10 +34,12 @@ public class ResumeController {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(String.valueOf(message.getChatId()));
 //
-        if (text.equals("O'tkazib yuborish") ||
-                text.equals("⬅ Назад") ||
-                text.equals("⬅ Ortga") ||
-                text.equals("Пропускать")
+        if (text.equals("O'tkazib yuborish"))
+            text = "Yo'q";
+        if (text.equals("Пропускать"))
+            text = "Нет";
+
+        if (text.equals("⬅ Назад") || text.equals("⬅ Ortga")
         ) {
             text = "";
         }
@@ -79,104 +81,105 @@ public class ResumeController {
 
     private void checkStatusUZ(String text, SendMessage sendMessage, Resume currentUser, UserStatus currentStatus, User user) {
         if (currentStatus.equals(UserStatus.RESUME)) {
-            sendMessage.setText("\uD83D\uDC64 Iltimos Familiya Ism Sharifingizni kiriting.\nNamuna: Aliyev Alijon Vali og'li.");
+            sendMessage.setReplyMarkup(KeyboardButtonUtil.onlyMenuUZ());
+            sendMessage.setText("\uD83D\uDC64 Iltimos Familiya Ism Sharifingizni kiriting.\nYordam: Aliyev Alijon Vali og'li.");
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s1);
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s1)) {
             currentUser.setNSF(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s2);
-            sendMessage.setText("Siz hohlayotgan Lavozimni kiriting.\nNamuna: Project Manager");
+            sendMessage.setText("Siz hohlayotgan Lavozimni kiriting.\nYordam: Project Manager");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s2)) {
             currentUser.setPosition(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s3);
-            sendMessage.setText("\uD83D\uDCC6 Tug'ulgan kun oy va yilingizni kiriting.\nNamuna: 01.01.2000");
+            sendMessage.setText("\uD83D\uDCC6 Tug'ulgan kun oy va yilingizni kiriting.\nYordam: 01.01.2000");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s3)) {
             currentUser.setDateOfBirth(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s4);
-            sendMessage.setText("\uD83C\uDFE0 Yashash manzilingizni kiriting.\nNamuna:Toshkent, Shayxontohur, Tinchlik ko'chasi 9-uy");
+            sendMessage.setText("\uD83C\uDFE0 Yashash manzilingizni kiriting.\nYordam:Toshkent, Shayxontohur, Tinchlik ko'chasi 9-uy");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s4)) {
             currentUser.setAddress(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s5);
             sendMessage.setReplyMarkup(KeyboardButtonUtil.shareContactUZ());
-            sendMessage.setText("\uD83D\uDCF1 Telefon raqamingizni kiriting yoki «Kontakt ulashish» ni bosing.\nNamuna +998901112233, ....");
+            sendMessage.setText("\uD83D\uDCF1 Telefon raqamingizni kiriting yoki «Kontakt ulashish» ni bosing.\nYordam +998901112233, ....");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s5)) {
             currentUser.setPhoneNumber(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s6);
-            sendMessage.setText("\uD83D\uDCE7 Emailgizni kiriting.\nNamuna: qwert@gmail.com, ...");
+            sendMessage.setText("\uD83D\uDCE7 Emailgizni kiriting.\nYordam: qwert@gmail.com, ...");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s6)) {
             currentUser.setEmail(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s7);
-            sendMessage.setText("Ma'lumotingiz ? \nNamuna: Oliy, O'rta, ...");  // tugma chiqadi
+            sendMessage.setText("Ma'lumotingiz ?");  // tugma chiqadi
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s7)) {
             currentUser.setLevelOfEducation(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s8);
-            sendMessage.setText("\uD83C\uDFDB Ta'lim muassasa nomi ?\nNamuna: Toshkent Axborot Texnologiyalari Universiteti");
+            sendMessage.setText("\uD83C\uDFDB Ta'lim muassasa nomi ?\nYordam: Toshkent Axborot Texnologiyalari Universiteti");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s8)) {
             currentUser.setNameOfTheInstitution(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s9);
-            sendMessage.setText("Fakultet nomi ?\nNamuna: Axborot Xavfsizligi");
+            sendMessage.setText("Fakultet nomi ?\nYordam: Axborot Xavfsizligi");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s9)) {
             currentUser.setFaculty(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s10);
-            sendMessage.setText("Mutahasisligingizni kiriting ?\nNamuna:Biolog");
+            sendMessage.setText("Mutahasisligingizni kiriting ?\nYordam:Biolog");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s10)) {
             currentUser.setProfession(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s11);
-            sendMessage.setText("\uD83D\uDCC6 Mutahasislik bo'yicha o'qigan yillaringiz ?\nNamuna: 2015-2019");
+            sendMessage.setText("\uD83D\uDCC6 Mutahasislik bo'yicha o'qigan yillaringiz ?\nYordam: 2015-2019");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s11)) {
             currentUser.setYearOfStudy(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s12);
-            sendMessage.setText("Ta'lim olgan shahringiz ?\nNamuna: Paris");
+            sendMessage.setText("Ta'lim olgan shahringiz ?\nYordam: Paris");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s12)) {
             currentUser.setNameOfStudiedCity(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s13);
-            sendMessage.setText("Oxirgi ishlagan lavozimingiz ?\nQayerda ishlagansiz ?\nNamuna: Toshkent shahar 35-IDUM, Direktor o'rinbosari.");
+            sendMessage.setText("Oxirgi ishlagan lavozimingiz ?\nQayerda ishlagansiz ?\nYordam: Toshkent shahar 35-IDUM, Direktor o'rinbosari.");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s13)) {
             currentUser.setYouLastWork(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s14);
-            sendMessage.setText("Ishlagan joyingizdagi asosiy majburiyatlaringiz ?\nNamuna: O'quvchilar intizomini nazorat qilish, ...");
+            sendMessage.setText("Ishlagan joyingizdagi asosiy majburiyatlaringiz ?\nYordam: O'quvchilar intizomini nazorat qilish, ...");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s14)) {
             currentUser.setFunctionalResponsibilities(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s15);
-            sendMessage.setText("Erishgan yutuqlaringiz ?\nNamuna: «Yil O'qituvchisi» Respublika bosqichi sovrindori, ...");
+            sendMessage.setText("Erishgan yutuqlaringiz ?\nYordam: «Yil O'qituvchisi» Respublika bosqichi sovrindori, ...");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s15)) {
             currentUser.setYourAchievements(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s16);
-            sendMessage.setText("\uD83E\uDDD1\uD83C\uDFFD\u200D\uD83D\uDCBB Komyuterdan foydalanish darajangiz ?\nNamuna: MSOffice, Adobe Photoshop, ...");
+            sendMessage.setText("\uD83E\uDDD1\uD83C\uDFFD\u200D\uD83D\uDCBB Komyuterdan foydalanish darajangiz ?\nYordam: MSOffice, Adobe Photoshop, ...");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s16)) {
             currentUser.setComputerUseRate(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s17);
-            sendMessage.setText("Qaysi tillarni bilasiz ?\nNamuna: Rus tili, Engliz tili (EILTS 7.0), ...");
+            sendMessage.setText("Qaysi tillarni bilasiz ?\nYordam: Rus tili, Engliz tili (EILTS 7.0), ...");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s17)) {
             currentUser.setKnowledgeOfLanguages(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s18);
-            sendMessage.setText("Ko'nikmalaringiz (Qobiliyat) ?\nNamuna: Ko‘nikmalar – muzokaralar olib borish va muzokaralar olib borish qobiliyati");
+            sendMessage.setText("Ko'nikmalaringiz (Qobiliyat) ?\nYordam: Ko‘nikmalar – muzokaralar olib borish va muzokaralar olib borish qobiliyati");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s18)) {
             currentUser.setYourAbility(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s19);
-            sendMessage.setText("Shaxsiy sifatlaringiz ?\nNamuna: E'tiborli, Tirishqoq, Ma'suliyatli, ...");
+            sendMessage.setText("Shaxsiy sifatlaringiz ?\nYordam: E'tiborli, Tirishqoq, Ma'suliyatli, ...");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s19)) {
             currentUser.setPersonalQuality(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s20);
-            sendMessage.setText("\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC67 Oilaviy ahvolingiz ?\nNamuna: Bo'ydoq");   // keyboard button
+            sendMessage.setText("\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC67 Oilaviy ahvolingiz ?\nYordam: Bo'ydoq");   // keyboard button
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s20)) {
             currentUser.setMaritalStatus(text);
@@ -186,12 +189,12 @@ public class ResumeController {
         } else if (currentStatus.equals(UserStatus.s21)) {
             currentUser.setChildren(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s22);
-            sendMessage.setText("\uD83D\uDCB3 Xaydovchilik guvohnomangiz bo'lsa toifasini kiriting ?\nNamuna: B,C / yo'q");   // keyboard B   C  D  A  yo'q
+            sendMessage.setText("\uD83D\uDCB3 Xaydovchilik guvohnomangiz bo'lsa toifasini kiriting ?\nYordam: B,C / yo'q");   // keyboard B   C  D  A  yo'q
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s22)) {
             currentUser.setDriversLicense(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s23);
-            sendMessage.setText("\uD83D\uDE98 Mashinangiz bormi bo'lsa nomini kiriting ?\nNamuna: Gentra / yo'q");
+            sendMessage.setText("\uD83D\uDE98 Mashinangiz bormi bo'lsa nomini kiriting ?\nYordam: Gentra / yo'q");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s23)) {
             currentUser.setAuto(text);
@@ -206,12 +209,12 @@ public class ResumeController {
         } else if (currentStatus.equals(UserStatus.s25)) {
             currentUser.setReadyForBusinessTrip(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s26);
-            sendMessage.setText("\uD83D\uDC6E\u200D Harbiy xizmatga tegishliligingiz ?\nNamuna: 1 oylik Harbiy xizmatga borganman.");  // button bo'lsa zo'r bolardi.
+            sendMessage.setText("\uD83D\uDC6E\u200D Harbiy xizmatga tegishliligingiz ?\nYordam: 1 oylik Harbiy xizmatga borganman.");  // button bo'lsa zo'r bolardi.
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s26)) {
             currentUser.setAffiliationToMilitary(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s27);
-            sendMessage.setText("♥ Sevimli  mashg'ulotlaringiz ?\nNamuna: Kitob o'qish, Taom tayyorlash, ...");
+            sendMessage.setText("♥ Sevimli  mashg'ulotlaringiz ?\nYordam: Kitob o'qish, Taom tayyorlash, ...");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s27)) {
             sendMessage.setReplyMarkup(KeyboardButtonUtil.agreePhotoButtonUZ());
@@ -234,6 +237,7 @@ public class ResumeController {
 
         if (currentStatus.equals(UserStatus.RESUME)) {
             sendMessage.setText("\uD83D\uDC64 Пожалуйста, введите свой Ф.И.О\nПример: Алиев Али Валиевич");
+            sendMessage.setReplyMarkup(KeyboardButtonUtil.onlyMenuRU());
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s1);
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s1)) {
@@ -250,11 +254,11 @@ public class ResumeController {
             currentUser.setDateOfBirth(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s4);
             sendMessage.setText("\uD83C\uDFE0 Введите свой адрес.\nПример: Ташкент, Шайхантахур, улица Тинчлик 9");
-            sendMessage.setReplyMarkup(KeyboardButtonUtil.shareContactRU());
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s4)) {
             currentUser.setAddress(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s5);
+            sendMessage.setReplyMarkup(KeyboardButtonUtil.shareContactRU());
             sendMessage.setText("\uD83D\uDCF1 Введите свой номер телефона или нажмите «Поделиться контактом».\nОбразец +998901112233, ....");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s5)) {
@@ -320,7 +324,7 @@ public class ResumeController {
         } else if (currentStatus.equals(UserStatus.s17)) {
             currentUser.setKnowledgeOfLanguages(text);
             ComponentContainer.userStatusMap.put(String.valueOf(user.getId()), UserStatus.s18);
-            sendMessage.setText("Ваши навыки ?\nПример: Умение вести переговоры и вести переговоры");
+            sendMessage.setText("Ваши навыки ?\nПример: Умение вести переговоры");
             ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
         } else if (currentStatus.equals(UserStatus.s18)) {
             currentUser.setYourAbility(text);
