@@ -185,6 +185,7 @@ public class MainController {
             case "\uD83C\uDFDE Galereya":
                 File file1 = new File("src/main/resources/AboutCompany/");
                 List<File> files = new java.util.ArrayList<>(List.of(file1.listFiles()));
+
                 Collections.shuffle(files);
 
                 for (File f : files) {
