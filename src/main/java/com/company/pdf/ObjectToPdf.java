@@ -335,6 +335,7 @@ public class ObjectToPdf {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+
         Font fontru1 = new Font(ru, 16, Font.BOLD, fontColor1);
         PdfPTable table = new PdfPTable(2); // 3 columns.
         table.setWidthPercentage(100); //Width 100%
