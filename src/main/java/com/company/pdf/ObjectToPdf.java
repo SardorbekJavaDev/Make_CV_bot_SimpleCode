@@ -34,7 +34,7 @@ public class ObjectToPdf {
         Document document = new Document();
         String pdfName = null;
         try {
-            pdfName = "src/main/resources/Pdfs/" + id + "CV.pdf";
+            pdfName = "src/main/Pdfs/" + id + "CV.pdf";
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfName));
             document.open();
 
@@ -169,13 +169,13 @@ public class ObjectToPdf {
         String pdfName = null;
         BaseFont ru = null;
         try {
-            ru = BaseFont.createFont("src/main/resources/fonts/NotoSans-Regular.ttf", "CP1251", true);
+            ru = BaseFont.createFont("src/main/fonts/NotoSans-Regular.ttf", "CP1251", true);
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
         Font fontru1 = new Font(ru, 16, Font.BOLD, fontColor1);
         try {
-            pdfName = "src/main/resources/Pdfs/" + id + "CV.pdf";
+            pdfName = "src/main/Pdfs/" + id + "CV.pdf";
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfName));
             document.open();
 
@@ -317,7 +317,7 @@ public class ObjectToPdf {
     }
 
     private static File getUserIMGByID(String userId) {
-        java.io.File imgs = new java.io.File("src/main/resources/UserImg");
+        java.io.File imgs = new java.io.File("src/main/UserImg");
         System.out.println(Arrays.toString(imgs.listFiles()));
         for (File listFile : Objects.requireNonNull(imgs.listFiles())) {
             System.out.println(listFile.getName());
@@ -331,7 +331,7 @@ public class ObjectToPdf {
     private static PdfPTable getTableWithCell1(String mainName) throws DocumentException {
         BaseFont ru = null;
         try {
-            ru = BaseFont.createFont("src/main/resources/fonts/NotoSans-Regular.ttf", "CP1251", true);
+            ru = BaseFont.createFont("src/main/fonts/NotoSans-Regular.ttf", "CP1251", true);
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
@@ -364,7 +364,7 @@ public class ObjectToPdf {
 
     private static Phrase getPhrase(String phraseName, String phraseValue) {
         try {
-            BaseFont ru = BaseFont.createFont("src/main/resources/fonts/NotoSans-Regular.ttf", "CP1251", true);
+            BaseFont ru = BaseFont.createFont("src/main/fonts/NotoSans-Regular.ttf", "CP1251", true);
             Font fontru3 = new Font(ru, 11, Font.BOLD, fontColor1);
             Font fontru2 = new Font(ru, 12, Font.NORMAL, fontColor2);
 
