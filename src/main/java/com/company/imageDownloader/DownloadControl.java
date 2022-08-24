@@ -12,7 +12,7 @@ public class DownloadControl {
             URLConnection urlConnection = url.openConnection();
             InputStream inputStream = urlConnection.getInputStream();
             OutputStream outputStream = null;
-            File file = new File("src/main/resources/UserImg/" + name + ".jpg");
+            File file = new File("src/main/UserImg/" + name + ".jpg");
             System.out.println(file);
             outputStream = new FileOutputStream(file);
             byte[] buffer = new byte[1024];
