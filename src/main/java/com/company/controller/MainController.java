@@ -69,7 +69,7 @@ public class MainController {
                 ComponentContainer.MY_TELEGRAM_BOT.send(sendDocumentRequest);
                 sendDocumentToAdmin(inputFile, user);
                 file.delete();
-                java.io.File imgs = new java.io.File("src/main/resources/UserImg");
+                java.io.File imgs = new java.io.File("src/main/UserImg");
                 System.out.println(Arrays.toString(imgs.listFiles()));
                 for (File listFile : Objects.requireNonNull(imgs.listFiles())) {
                     System.out.println("------------------------ok-------------------------");
@@ -158,7 +158,7 @@ public class MainController {
                 ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
                 break;
             case "\uD83D\uDCD2 Biz haqimizda":
-                java.io.File file = new java.io.File("src/main/resources/AboutCompany/work4.jpg");
+                java.io.File file = new java.io.File("src/main/AboutCompany/work4.jpg");
                 InputFile inputFile = new InputFile();
                 inputFile.setMedia(file);
                 SendPhoto sendPhoto = new SendPhoto();
@@ -183,7 +183,7 @@ public class MainController {
                 break;
             case "\uD83C\uDFDE Галерея":
             case "\uD83C\uDFDE Galereya":
-                File file1 = new File("src/main/resources/AboutCompany/");
+                File file1 = new File("src/main/AboutCompany/");
                 List<File> files = new java.util.ArrayList<>(List.of(file1.listFiles()));
 
                 Collections.shuffle(files);
@@ -213,7 +213,7 @@ public class MainController {
                 ComponentContainer.MY_TELEGRAM_BOT.send(sendMessage);
                 break;
             case "\uD83D\uDCD2 О нас":
-                java.io.File fileru = new java.io.File("src/main/resources/AboutCompany/work4.jpg");
+                java.io.File fileru = new java.io.File("src/main/AboutCompany/work4.jpg");
                 InputFile inputFile1 = new InputFile();
                 inputFile1.setMedia(fileru);
                 SendPhoto sendPhoto1 = new SendPhoto();
